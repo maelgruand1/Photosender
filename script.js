@@ -1,3 +1,52 @@
+// Fonction pour vérifier les identifiants (email et mot de passe) dans Google Sheets
+function checkCredentials(email, password) {
+  const sheetId = "1EQYv8StlpOsOMX43w8WQf_dO1CrbLuREIogFKIP-pcQ"; // Remplace par l'ID de ton Google Sheet
+  const range = "Sheet1!A:B"; // Plage des données à lire (colonne A : Email, colonne B : Mot de passe)
+
+  // Appel API pour obtenir les données de la feuille
+  gapi.client.sheets.spreadsheets.values
+    .get({
+      spreadsheetId: sheetId,
+      range: range,
+    })
+    .then(
+      function (response) {
+        const rows = response.result.values;
+        if (rows.length > 0) {
+          let isAuthenticated = false;
+
+          // Parcours les lignes et compare les identifiants
+          rows.forEach(function (row) {
+            const sheetEmail = row[0];
+            const sheetPassword = row[1];
+
+            if (email === sheetEmail && password === sheetPassword) {
+              isAuthenticated = true;
+            }
+          });
+
+          if (isAuthenticated) {
+            document.getElementById("status").textContent =
+              "Connexion réussie !";
+            document.getElementById("photosLink").classList.remove("hidden");
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("photos").classList.remove("hidden");
+          } else {
+            document.getElementById("status").textContent =
+              "Erreur de connexion : email ou mot de passe incorrect";
+          }
+        } else {
+          document.getElementById("status").textContent =
+            "Aucun utilisateur trouvé dans la feuille";
+        }
+      },
+      function (error) {
+        console.error("Erreur API Google Sheets", error);
+        document.getElementById("status").textContent = "Erreur de connexion.";
+      }
+    );
+}
+
 // Navigation entre les sections
 document.querySelectorAll(".navbar a").forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -17,25 +66,19 @@ document.querySelectorAll(".navbar a").forEach((link) => {
 // Gestion du formulaire de connexion
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("login-form");
-
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
 
-      auth
-        .signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          document.getElementById("status").textContent = "Connexion réussie !";
-          document.getElementById("photosLink").classList.remove("hidden");
-          document.getElementById("login").classList.add("hidden");
-          document.getElementById("photos").classList.remove("hidden");
-        })
-        .catch((error) => {
-          document.getElementById("status").textContent = "Erreur de connexion.";
-          console.error(error);
-        });
+      if (emailInput && passwordInput) {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        // Appeler la fonction pour vérifier les identifiants dans Google Sheets
+        checkCredentials(email, password);
+      }
     });
   }
 });
@@ -44,11 +87,16 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const startButton = document.querySelector(".action-btn");
 
+  // Vérifie si le bouton existe avant d'ajouter un événement
   if (startButton) {
     startButton.addEventListener("click", function () {
-      if (document.getElementById("profile-logo").classList.contains("hidden")) {
+      // Vérifie si l'utilisateur est connecté
+      if (
+        document.getElementById("profile-logo").classList.contains("hidden")
+      ) {
         alert("Veuillez vous connecter d'abord.");
       } else {
+        // Si l'utilisateur est connecté, rediriger vers la section Photos
         document.getElementById("home").classList.add("hidden"); // Masquer la section Home
         document.getElementById("photos").classList.remove("hidden"); // Afficher la section Photos
       }
@@ -56,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Fonction pour envoyer une photo
 document.getElementById("photoForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
