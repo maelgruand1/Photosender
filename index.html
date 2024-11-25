@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Photosender</title>
     <link rel="stylesheet" href="styles.css" />
+    <!-- Inclure Firebase App -->
     <script
       defer
       src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"
     ></script>
+    <!-- Inclure Firebase Auth -->
     <script
       defer
       src="https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js"
     ></script>
-    <script
-      defer
-      src="https://www.gstatic.com/firebasejs/10.3.0/firebase-storage.js"
-    ></script>
+    <!-- Ton script JS avec la logique d'application -->
     <script defer src="script.js"></script>
+
     <link rel="icon" href="PS.png" class="logo" />
   </head>
   <body>
@@ -35,7 +35,9 @@
           <a href="#" data-section="home">Home</a>
           <a href="#" data-section="about">About</a>
           <a href="#" data-section="login">Login</a>
-          <a href="#" data-section="photos" class="hidden" id="photosLink">Photos</a>
+          <a href="#" data-section="photos" class="hidden" id="photosLink"
+            >Photos</a
+          >
         </li>
       </ul>
     </nav>
@@ -144,28 +146,32 @@
           auth
             .signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
-              document.getElementById("status").textContent = "Connexion réussie !";
+              document.getElementById("status").textContent =
+                "Connexion réussie !";
               document.getElementById("photosLink").classList.remove("hidden");
-              changeSection('photos');
+              changeSection("photos");
             })
             .catch((error) => {
-              document.getElementById("status").textContent = "Erreur de connexion.";
+              document.getElementById("status").textContent =
+                "Erreur de connexion.";
               console.error(error);
             });
         });
 
       // Load photos
       function loadPhotos() {
-        google.script.run.withSuccessHandler(function(urls) {
-          var galleryDiv = document.querySelector("#photoGallery .photos");
-          galleryDiv.innerHTML = ""; // Clear existing photos
+        google.script.run
+          .withSuccessHandler(function (urls) {
+            var galleryDiv = document.querySelector("#photoGallery .photos");
+            galleryDiv.innerHTML = ""; // Clear existing photos
 
-          urls.forEach(function(url) {
-            var imgElement = document.createElement("img");
-            imgElement.src = url;
-            galleryDiv.appendChild(imgElement);
-          });
-        }).getPhotosLinks(); // Call Google Apps Script to get photos
+            urls.forEach(function (url) {
+              var imgElement = document.createElement("img");
+              imgElement.src = url;
+              galleryDiv.appendChild(imgElement);
+            });
+          })
+          .getPhotosLinks(); // Call Google Apps Script to get photos
       }
     </script>
   </body>
