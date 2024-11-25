@@ -5,7 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Photosender</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/10.3.0/firebase-storage.js"
+    ></script>
+    <script defer src="script.js"></script>
     <link rel="icon" href="PS.png" class="logo" />
   </head>
   <body>
@@ -23,9 +35,11 @@
           <a href="#" data-section="home">Home</a>
           <a href="#" data-section="about">About</a>
           <a href="#" data-section="login">Login</a>
+          <a href="#" data-section="photos" class="hidden" id="photosLink">Photos</a>
         </li>
       </ul>
     </nav>
+
     <main>
       <!-- Section Home -->
       <section id="home" class="active">
@@ -55,13 +69,13 @@
         <div class="login-container">
           <h2>Connexion</h2>
           <form id="login-form">
+            <input type="email" id="email" placeholder="E-mail" required />
             <input
-              type="text"
-              id="username"
-              placeholder="Nom d'utilisateur"
+              type="password"
+              id="password"
+              placeholder="Mot de passe"
               required
             />
-            <input type="email" id="email" placeholder="E-mail" required />
             <button type="submit">Se connecter</button>
           </form>
           <p id="status"></p>
@@ -70,23 +84,89 @@
           Pas encore inscrit ? <a href="#">Créer un compte</a>
         </p>
       </section>
-      <!-- Section Photos (masquée au départ) -->
-      <!-- Formulaire d'envoi de photo -->
-      <section id="photos" class="hidden">
-        <h2>Envoyer une photo</h2>
-        <form id="photoForm" enctype="multipart/form-data">
-          <input type="file" id="photoInput" accept="image/*" required />
-          <button type="submit" class="action-btn">Envoyer la photo</button>
-        </form>
 
+      <!-- Section Photos -->
+      <section id="photos" class="hidden">
+        <h2>Galerie de photos</h2>
+        <button onclick="loadPhotos()">Charger les photos</button>
         <div id="photoGallery" class="gallery">
-          <h3>Galerie de photos</h3>
           <div class="photos"></div>
         </div>
       </section>
     </main>
+
     <footer>
       <p>&copy; 2024 - Photosender.</p>
     </footer>
+
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAb6k8Q3G39ZLAsSOCUx0A-bX3J8b9ifak",
+        authDomain: "photosenderwebapp.firebaseapp.com",
+        projectId: "photosenderwebapp",
+        storageBucket: "photosenderwebapp.firebasestorage.app",
+        messagingSenderId: "575206578690",
+        appId: "1:575206578690:web:829160d554049ab1a2a51b",
+        measurementId: "G-C9VZNKSQ30",
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const storage = firebase.storage();
+
+      // Change section visibility
+      function changeSection(section) {
+        const sections = document.querySelectorAll("main section");
+        sections.forEach((sec) => {
+          sec.classList.add("hidden");
+        });
+        document.getElementById(section).classList.remove("hidden");
+      }
+
+      // Navigation between sections
+      document.querySelectorAll(".navbar a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const section = e.target.getAttribute("data-section");
+          changeSection(section);
+        });
+      });
+
+      // Login form
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          auth
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              document.getElementById("status").textContent = "Connexion réussie !";
+              document.getElementById("photosLink").classList.remove("hidden");
+              changeSection('photos');
+            })
+            .catch((error) => {
+              document.getElementById("status").textContent = "Erreur de connexion.";
+              console.error(error);
+            });
+        });
+
+      // Load photos
+      function loadPhotos() {
+        google.script.run.withSuccessHandler(function(urls) {
+          var galleryDiv = document.querySelector("#photoGallery .photos");
+          galleryDiv.innerHTML = ""; // Clear existing photos
+
+          urls.forEach(function(url) {
+            var imgElement = document.createElement("img");
+            imgElement.src = url;
+            galleryDiv.appendChild(imgElement);
+          });
+        }).getPhotosLinks(); // Call Google Apps Script to get photos
+      }
+    </script>
   </body>
 </html>
