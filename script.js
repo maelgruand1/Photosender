@@ -19,12 +19,12 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   e.preventDefault(); // Empêche le rechargement de la page
 
   const username = document.getElementById("username").value; // Récupère le nom d'utilisateur
-  const password = document.getElementById("password").value; // Récupère le mot de passe
+  const email = document.getElementById("email").value; // Récupère l'email
 
-  // Vérifie si les champs sont remplis et si le mot de passe est correct
-  if (username && password === "1234") {
+  // Vérifie si le nom d'utilisateur et l'email sont remplis
+  if (username && email) {
     alert("Connexion réussie !");
-    
+
     // Met à jour le profil
     document.getElementById("profile-username").textContent = username; // Affiche le nom d'utilisateur
     document.getElementById("profile-logo").classList.remove("hidden"); // Affiche le profil
@@ -33,6 +33,6 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     document.getElementById("login").classList.add("hidden");
     document.getElementById("home").classList.remove("hidden");
   } else {
-    alert("Nom d'utilisateur ou mot de passe incorrect !");
+    alert("Veuillez remplir le nom d'utilisateur et l'email !");
   }
 });
