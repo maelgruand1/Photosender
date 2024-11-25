@@ -1,5 +1,3 @@
-// script.js
-
 // Navigation entre les sections
 document.querySelectorAll(".navbar a").forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -23,14 +21,15 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   const username = document.getElementById("username").value; // Récupère le nom d'utilisateur
   const password = document.getElementById("password").value; // Récupère le mot de passe
 
+  // Vérifie si les champs sont remplis et si le mot de passe est correct
   if (username && password === "1234") {
-    // Vérifie les champs
     alert("Connexion réussie !");
+    
     // Met à jour le profil
     document.getElementById("profile-username").textContent = username; // Affiche le nom d'utilisateur
     document.getElementById("profile-logo").classList.remove("hidden"); // Affiche le profil
 
-    // Affiche la section "home" et masque la section "login"
+    // Masque la section "login" et affiche la section "home"
     document.getElementById("login").classList.add("hidden");
     document.getElementById("home").classList.remove("hidden");
   } else {
