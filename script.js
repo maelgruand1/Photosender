@@ -40,7 +40,6 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   }
 });
 // Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
-// Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
 document.addEventListener("DOMContentLoaded", function () {
   const startButton = document.querySelector(".action-btn");
 
