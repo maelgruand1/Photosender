@@ -215,4 +215,27 @@ body {
     background-color: #0056b3;
 
   }
-  
+  /* Section de la galerie de photos */
+#photos {
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.photo-gallery {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.photo-item {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none;
+}

@@ -32,6 +32,9 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     // Masque la section "login" et affiche la section "home"
     document.getElementById("login").classList.add("hidden");
     document.getElementById("home").classList.remove("hidden");
+
+    // Affiche la section des photos
+    document.getElementById("photos").classList.remove("hidden");
   } else {
     alert("Veuillez remplir le nom d'utilisateur et l'email !");
   }
