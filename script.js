@@ -27,7 +27,7 @@ loginForm.addEventListener("submit", (e) => {
   const password = document.getElementById("password").value;
 
   // Vérification simplifiée
-  if (username && password === "1234") {
+  if (username == "admin" && password === "1234") {
     alert("Connexion réussie !");
     // Afficher le logo de profil avec le nom d'utilisateur
     profileUsername.textContent = username;
