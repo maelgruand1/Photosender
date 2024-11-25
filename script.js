@@ -40,13 +40,23 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
   }
 });
 // Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
-document.querySelector(".action-btn").addEventListener("click", function () {
-  // Vérifie si l'utilisateur est connecté
-  if (document.getElementById("profile-logo").classList.contains("hidden")) {
-    alert("Veuillez vous connecter d'abord.");
-  } else {
-    // Si l'utilisateur est connecté, rediriger vers la section Photos
-    document.getElementById("home").classList.add("hidden"); // Masquer la section Home
-    document.getElementById("photos").classList.remove("hidden"); // Afficher la section Photos
+// Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
+document.addEventListener("DOMContentLoaded", function () {
+  const startButton = document.querySelector(".action-btn");
+
+  // Vérifie si le bouton existe avant d'ajouter un événement
+  if (startButton) {
+    startButton.addEventListener("click", function () {
+      // Vérifie si l'utilisateur est connecté
+      if (
+        document.getElementById("profile-logo").classList.contains("hidden")
+      ) {
+        alert("Veuillez vous connecter d'abord.");
+      } else {
+        // Si l'utilisateur est connecté, rediriger vers la section Photos
+        document.getElementById("home").classList.add("hidden"); // Masquer la section Home
+        document.getElementById("photos").classList.remove("hidden"); // Afficher la section Photos
+      }
+    });
   }
 });
