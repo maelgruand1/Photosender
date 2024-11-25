@@ -16,6 +16,7 @@
         <li>
           <a href="#" data-section="home">Home</a>
           <a href="#" data-section="about">About</a>
+          <a href="#" data-section="login">Login</a>
         </li>
       </ul>
     </nav>
@@ -36,9 +37,28 @@
           Photosender est une plateforme innovante conçue pour faciliter le partage de vos photos avec vos amis, votre famille ou vos collègues. Que vous souhaitiez envoyer une seule image ou créer une galerie, Photosender est fait pour vous !
         </p>
       </section>
+
+      <!-- Section Login -->
+      <section id="login" class="hidden">
+        <div class="login-container">
+          <h2>Connexion</h2>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Nom d'utilisateur</label>
+              <input type="text" id="username" placeholder="Entrez votre nom d'utilisateur" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" id="password" placeholder="Entrez votre mot de passe" required />
+            </div>
+            <button type="submit" class="action-btn">Se connecter</button>
+          </form>
+          <p class="signup-text">Pas encore inscrit ? <a href="#">Créer un compte</a></p>
+        </div>
+      </section>
     </main>
     <footer>
-      <p>&copy; 2024 - Photosender. Partagez vos souvenirs.</p>
+      <p>&copy; 2024 - Photosender.</p>
     </footer>
   </body>
 </html>
