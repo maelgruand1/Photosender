@@ -59,3 +59,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const photoGallery = document.querySelector("#photoGallery .photos");
+
+  // Récupérer la liste des photos depuis Google Apps Script
+  fetch(
+    "https://script.google.com/macros/s/AKfycby879s3Dls3iBwm7iufecGmBYIRSghXvyJFxvg6oG85Scp_vvQ_sbVrRxrmWyFHW3XK/exec"
+  ) // Remplace TON_SCRIPT_ID par l'ID de ton script déployé
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.files && data.files.length > 0) {
+        data.files.forEach((file) => {
+          const img = document.createElement("img");
+          img.src = file.url; // URL du fichier retournée par le script
+          img.alt = file.name; // Nom du fichier comme description
+          img.classList.add("uploaded-photo");
+          photoGallery.appendChild(img); // Ajouter l'image à la galerie
+        });
+      } else {
+        console.log("Aucune photo trouvée.");
+      }
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la récupération des photos : ", err);
+    });
+});
