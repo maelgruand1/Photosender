@@ -16,65 +16,47 @@ document.querySelectorAll(".navbar a").forEach((link) => {
 
 // Gestion du formulaire de connexion
 document.addEventListener("DOMContentLoaded", function () {
-  // Ajoute ici ton code pour les événements, comme l'ajout de l'écouteur
   const form = document.getElementById("login-form");
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      // ton code pour la soumission du formulaire
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const emailInput = document.getElementById("email");
-          const passwordInput = document.getElementById("password");
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-          if (emailInput && passwordInput) {
-            const email = emailInput.value;
-            const password = passwordInput.value;
-
-            // Traitement du formulaire
-            auth
-              .signInWithEmailAndPassword(email, password)
-              .then((userCredential) => {
-                document.getElementById("status").textContent =
-                  "Connexion réussie !";
-                document
-                  .getElementById("photosLink")
-                  .classList.remove("hidden");
-                document.getElementById("login").classList.add("hidden");
-                document.getElementById("photos").classList.remove("hidden");
-              })
-              .catch((error) => {
-                document.getElementById("status").textContent =
-                  "Erreur de connexion.";
-                console.error(error);
-              });
-          }
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          document.getElementById("status").textContent = "Connexion réussie !";
+          document.getElementById("photosLink").classList.remove("hidden");
+          document.getElementById("login").classList.add("hidden");
+          document.getElementById("photos").classList.remove("hidden");
+        })
+        .catch((error) => {
+          document.getElementById("status").textContent = "Erreur de connexion.";
+          console.error(error);
         });
     });
   }
 });
+
 // Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
 document.addEventListener("DOMContentLoaded", function () {
   const startButton = document.querySelector(".action-btn");
 
-  // Vérifie si le bouton existe avant d'ajouter un événement
   if (startButton) {
     startButton.addEventListener("click", function () {
-      // Vérifie si l'utilisateur est connecté
-      if (
-        document.getElementById("profile-logo").classList.contains("hidden")
-      ) {
+      if (document.getElementById("profile-logo").classList.contains("hidden")) {
         alert("Veuillez vous connecter d'abord.");
       } else {
-        // Si l'utilisateur est connecté, rediriger vers la section Photos
         document.getElementById("home").classList.add("hidden"); // Masquer la section Home
         document.getElementById("photos").classList.remove("hidden"); // Afficher la section Photos
       }
     });
   }
 });
+
+// Fonction pour envoyer une photo
 document.getElementById("photoForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
