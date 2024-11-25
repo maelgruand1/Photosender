@@ -198,4 +198,23 @@ body {
   .signup-text a:hover {
     text-decoration: underline;
   }
+  /* Logo de profil dans le header */
+#profile-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background: #004080;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  #profile-icon {
+    font-size: 1.5rem; /* Icône plus grande */
+  }
+  
+  .hidden {
+    display: none;
+  }
   

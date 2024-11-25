@@ -10,7 +10,13 @@
   <body>
     <header>
       <h1 class="title">Photosender</h1>
+      <div id="profile-logo" class="hidden">
+        <span id="profile-icon">👤</span>
+        <span id="profile-username"></span>
+      </div>
     </header>
+    
+
     <nav class="navbar">
       <ul>
         <li>
@@ -25,7 +31,10 @@
       <section id="home" class="active">
         <div>
           <h2>Home</h2>
-          <p>Bienvenue sur Photosender, votre solution pour envoyer et partager vos photos en toute simplicité !</p>
+          <p>
+            Bienvenue sur Photosender, votre solution pour envoyer et partager
+            vos photos en toute simplicité !
+          </p>
           <button class="action-btn">Commencez Maintenant</button>
         </div>
       </section>
@@ -34,7 +43,10 @@
       <section id="about" class="hidden">
         <h2>À propos de Photosender</h2>
         <p>
-          Photosender est une plateforme innovante conçue pour faciliter le partage de vos photos avec vos amis, votre famille ou vos collègues. Que vous souhaitiez envoyer une seule image ou créer une galerie, Photosender est fait pour vous !
+          Photosender est une plateforme innovante conçue pour faciliter le
+          partage de vos photos avec vos amis, votre famille ou vos collègues.
+          Que vous souhaitiez envoyer une seule image ou créer une galerie,
+          Photosender est fait pour vous !
         </p>
       </section>
 
@@ -45,15 +57,27 @@
           <form id="login-form">
             <div class="form-group">
               <label for="username">Nom d'utilisateur</label>
-              <input type="text" id="username" placeholder="Entrez votre nom d'utilisateur" required />
+              <input
+                type="text"
+                id="username"
+                placeholder="Entrez votre nom d'utilisateur"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="password">Mot de passe</label>
-              <input type="password" id="password" placeholder="Entrez votre mot de passe" required />
+              <input
+                type="password"
+                id="password"
+                placeholder="Entrez votre mot de passe"
+                required
+              />
             </div>
             <button type="submit" class="action-btn">Se connecter</button>
           </form>
-          <p class="signup-text">Pas encore inscrit ? <a href="#">Créer un compte</a></p>
+          <p class="signup-text">
+            Pas encore inscrit ? <a href="#">Créer un compte</a>
+          </p>
         </div>
       </section>
     </main>
