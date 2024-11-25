@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Photosender</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://apis.google.com/js/api.js"></script>
     <!-- Ton script JS avec la logique d'application -->
     <script defer type="module" src="script.js"></script>
 
@@ -87,6 +86,39 @@
         </div>
       </section>
     </main>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      // Charger l'API Google et initialiser l'API Sheets
+      function initClient() {
+        const API_KEY = "AIzaSyAb6k8Q3G39ZLAsSOCUx0A-bX3J8b9ifak"; // Remplace par ta clé API
+        const CLIENT_ID =
+          "maelgruandcompany@photosenderwebapp.iam.gserviceaccount.com"; // Remplace par ton client ID
+        const DISCOVERY_DOC =
+          "https://sheets.googleapis.com/$discovery/rest?version=v4";
+        const SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+        gapi.load("client", () => {
+          gapi.client
+            .init({
+              apiKey: API_KEY,
+              discoveryDocs: [DISCOVERY_DOC],
+            })
+            .then(() => {
+              console.log("API Google Sheets initialisée.");
+            })
+            .catch((error) => {
+              console.error(
+                "Erreur d'initialisation de l'API Google Sheets:",
+                error
+              );
+            });
+        });
+      }
+    </script>
+    <script>
+      // Démarrer l'initialisation
+      document.addEventListener("DOMContentLoaded", initClient);
+    </script>
 
     <footer>
       <p>&copy; 2024 - Photosender.</p>
