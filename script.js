@@ -15,28 +15,44 @@ document.querySelectorAll(".navbar a").forEach((link) => {
 });
 
 // Gestion du formulaire de connexion
-document.getElementById("login-form").addEventListener("submit", function (e) {
-  e.preventDefault(); // Empêche le rechargement de la page
+document.addEventListener("DOMContentLoaded", function () {
+  // Ajoute ici ton code pour les événements, comme l'ajout de l'écouteur
+  const form = document.getElementById("login-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      // ton code pour la soumission du formulaire
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const emailInput = document.getElementById("email");
+          const passwordInput = document.getElementById("password");
 
-  const username = document.getElementById("username").value; // Récupère le nom d'utilisateur
-  const email = document.getElementById("email").value; // Récupère l'email
+          if (emailInput && passwordInput) {
+            const email = emailInput.value;
+            const password = passwordInput.value;
 
-  // Vérifie si le nom d'utilisateur et l'email sont remplis
-  if (username && email) {
-    alert("Connexion réussie !");
-
-    // Met à jour le profil
-    document.getElementById("profile-username").textContent = username; // Affiche le nom d'utilisateur
-    document.getElementById("profile-logo").classList.remove("hidden"); // Affiche le profil
-
-    // Masque la section "login" et affiche la section "home"
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("home").classList.remove("hidden");
-
-    // Affiche la section des photos
-    document.getElementById("photos").classList.remove("hidden");
-  } else {
-    alert("Veuillez remplir le nom d'utilisateur et l'email !");
+            // Traitement du formulaire
+            auth
+              .signInWithEmailAndPassword(email, password)
+              .then((userCredential) => {
+                document.getElementById("status").textContent =
+                  "Connexion réussie !";
+                document
+                  .getElementById("photosLink")
+                  .classList.remove("hidden");
+                document.getElementById("login").classList.add("hidden");
+                document.getElementById("photos").classList.remove("hidden");
+              })
+              .catch((error) => {
+                document.getElementById("status").textContent =
+                  "Erreur de connexion.";
+                console.error(error);
+              });
+          }
+        });
+    });
   }
 });
 // Ajouter un gestionnaire d'événement au bouton "Commencez Maintenant"
