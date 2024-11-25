@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <h1 class="title"></h1>
+      <h1 class="title">Photosender</h1>
     </header>
     <nav class="navbar">
       <ul>
@@ -17,20 +17,28 @@
           <a href="#" data-section="home">Home</a>
           <a href="#" data-section="about">About</a>
         </li>
-        <li></li>
       </ul>
     </nav>
-    <section id="home">
-      <div>
-        <h2>Home</h2>
-        <p>Bienvenue sur la page principale</p>
-      </div>
-    </section>
-    <section id="about">
-      <div>
-        <h2>A propos de cette page</h2>
-        <p>Cette page est un système d'envoie et de galerie photo</p>
-      </div>
-    </section>
+    <main>
+      <!-- Section Home -->
+      <section id="home" class="active">
+        <div>
+          <h2>Home</h2>
+          <p>Bienvenue sur Photosender, votre solution pour envoyer et partager vos photos en toute simplicité !</p>
+          <button class="action-btn">Commencez Maintenant</button>
+        </div>
+      </section>
+
+      <!-- Section About -->
+      <section id="about" class="hidden">
+        <h2>À propos de Photosender</h2>
+        <p>
+          Photosender est une plateforme innovante conçue pour faciliter le partage de vos photos avec vos amis, votre famille ou vos collègues. Que vous souhaitiez envoyer une seule image ou créer une galerie, Photosender est fait pour vous !
+        </p>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 - Photosender. Partagez vos souvenirs.</p>
+    </footer>
   </body>
 </html>
