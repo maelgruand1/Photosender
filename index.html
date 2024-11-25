@@ -15,7 +15,6 @@
         <span id="profile-username"></span>
       </div>
     </header>
-    
 
     <nav class="navbar">
       <ul>
@@ -54,33 +53,61 @@
       <section id="login" class="hidden">
         <div class="login-container">
           <h2>Connexion</h2>
-          <form id="login-form">
-            <div class="form-group">
-              <label for="username">Nom d'utilisateur</label>
+          <div class="login-container">
+            <h2>Connexion</h2>
+            <form id="loginForm">
               <input
                 type="text"
                 id="username"
-                placeholder="Entrez votre nom d'utilisateur"
+                placeholder="Nom d'utilisateur"
                 required
               />
-            </div>
-            <div class="form-group">
-              <label for="password">Mot de passe</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Entrez votre mot de passe"
-                required
-              />
-            </div>
-            <button type="submit" class="action-btn">Se connecter</button>
-          </form>
+              <input type="email" id="email" placeholder="E-mail" required />
+              <button type="submit">Se connecter</button>
+            </form>
+            <p id="status"></p>
+          </div>
+
           <p class="signup-text">
             Pas encore inscrit ? <a href="#">Créer un compte</a>
           </p>
         </div>
       </section>
     </main>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("email").value;
+
+          fetch(
+            "https://script.google.com/macros/s/AKfycbx1vPPuzAdU75K6qX-y2RsFGUxxTzAPKALnfdHr5F-R85VaibpJYTqCoYHKD16XoUAFfg/exec",
+            {
+              // Remplace par l'URL du script Apps Script
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, email }),
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                document.getElementById("status").textContent =
+                  "Connecté avec succès !";
+              } else {
+                document.getElementById("status").textContent =
+                  "Erreur de connexion.";
+              }
+            })
+            .catch((err) => {
+              document.getElementById("status").textContent =
+                "Une erreur est survenue.";
+              console.error(err);
+            });
+        });
+    </script>
     <footer>
       <p>&copy; 2024 - Photosender.</p>
     </footer>
