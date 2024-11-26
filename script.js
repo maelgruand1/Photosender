@@ -1,7 +1,7 @@
 // Fonction pour vérifier les identifiants (email et mot de passe) dans Google Sheets
 function checkCredentials(email, password) {
   const sheetId = "1EQYv8StlpOsOMX43w8WQf_dO1CrbLuREIogFKIP-pcQ";
-  const range = "Sheet1!A:B";
+  const range = "Feuille1!A:B";
 
   // Vérifie que l'API Google Sheets est chargée
   if (!gapi || !gapi.client || !gapi.client.sheets) {
